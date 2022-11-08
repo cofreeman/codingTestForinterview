@@ -12,9 +12,18 @@ public class Main {
         boolean go = true;
         int result = 0;
         while(go){
-            for (int i = 0; i < ; i++) {
-                
+            for (int i = 0; i < arr.length - 3; i++) {
+                if (integers.size() < 4){
+                    go = false;
+                }
+                if (integers.get(i) == 1 && integers.get(i+1) == 2&& integers.get(i+2) == 3&& integers.get(i+3) == 1){
+                    result +=1;
+                    integers.p
+                    break;
+                }
             }
+            go = false;
         }
+        return result;
     }
 }
