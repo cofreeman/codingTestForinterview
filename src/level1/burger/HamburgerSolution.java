@@ -1,9 +1,10 @@
+package level1.burger;
 
 import java.util.*;
 
-class Solution {
+class HamburgerSolution {
     public static int WALL_NUMBER = 999;
-
+    public int result = 0;
     public int solution(int[] ingredient) {
         DLinkedList<Integer> integerDLinkedList = new DLinkedList<>();
         for (int i = 0; i < ingredient.length; i++) {
@@ -17,12 +18,13 @@ class Solution {
         integerDLinkedList.addLast(WALL_NUMBER);
         integerDLinkedList.addLast(WALL_NUMBER);
         integerDLinkedList.addLast(WALL_NUMBER);
-        return searchListAndMakeHamburger(integerDLinkedList,1,2,3,1);
+        searchListAndMakeHamburger(integerDLinkedList,1,2,3,1);
+
+        return result;
     }
 
-    private int searchListAndMakeHamburger(DLinkedList<Integer> integerDLinkedList, int i, int i1, int i2, int i3) {
+    private void searchListAndMakeHamburger(DLinkedList<Integer> integerDLinkedList, int i, int i1, int i2, int i3) {
         Node<Integer> pointedNode = integerDLinkedList.head;
-        int result = 0;
         while(true){
             if (pointedNode.data == i && pointedNode.next.data == i1 && pointedNode.next.next.data == i2 && pointedNode.next.next.next.data == i3){
                 result++;
@@ -30,23 +32,16 @@ class Solution {
                 pointedNode = pointedNode.prev.prev;
                 continue;
             }
-            pointedNode = pointedNode.next;
-            if(pointedNode.data == WALL_NUMBER){
+            if(pointedNode.next.next.next.next.data == WALL_NUMBER){
                 break;
             }
+            pointedNode = pointedNode.next;
         }
-        return result;
     }
 
     private void deleteNodes(Node<Integer> pointedNode) {
-        pointedNode.remove();
-        pointedNode = pointedNode.next;
-        pointedNode.remove();
-        pointedNode = pointedNode.next;
-        pointedNode.remove();
-        pointedNode = pointedNode.next;
-        pointedNode.remove();
-        pointedNode = pointedNode.next;
+        pointedNode.prev.next =  pointedNode.next.next.next.next;
+        pointedNode.next.next.next.next.prev = pointedNode.prev;
     }
 }
 class Node<E> {
@@ -59,10 +54,6 @@ class Node<E> {
         this.data = data;
         this.prev = null;
         this.next = null;
-    }
-    void remove(){
-        this.next.prev = this.prev;
-        this.prev.next = this.next;
     }
 }
 
