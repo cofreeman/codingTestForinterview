@@ -4,18 +4,23 @@ import java.util.Scanner;
 
 public class Main {
     public String solution(String str) {
-        return str.chars().map(
-                        s -> Character.isUpperCase(s) ? Character.toLowerCase(s) : Character.toUpperCase((s))
-                ).collect(StringBuilder::new,
-                        StringBuilder::appendCodePoint,
-                        StringBuilder::append)
-                .toString();
+        String[] stringArray = str.split(" ");
+        String result = "";
+        int max = 0;
+        for (String s :
+                stringArray) {
+            if (s.length() > max) {
+                result = s;
+                max = s.length();
+            }
+        }
+        return result;
     }
 
     public static void main(String[] args) {
         Main T = new Main();
         Scanner kb = new Scanner(System.in);
-        String str = kb.next();
+        String str = kb.nextLine();
 
         System.out.print(T.solution(str));
     }
